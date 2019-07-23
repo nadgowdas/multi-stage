@@ -1,0 +1,6 @@
+psutil==2.1.0
+requests>2.6.11
+netifaces<0.10.6
+kafka-python>1.2.0
+pykafka<2.1.0,>1.0.0
+django==1.2
