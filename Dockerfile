@@ -1,12 +1,11 @@
-
 FROM golang:1.11-alpine AS build
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
-RUN apk add --no-cache git      
+RUN apk add --no-cache git
+RUN apk add --update --no-cache alpine-sdk iproute2 dumb-init fuse 
+      
 RUN go get github.com/golang/dep/cmd/dep
-
-RUN pip install -r requirement1.txt
 
 # List project dependencies with Gopkg.toml and Gopkg.lock
 # These layers are only re-built when Gopkg files are updated
@@ -20,14 +19,9 @@ RUN dep ensure -vendor-only
 COPY . /go/src/project/
 RUN go build -o /bin/project
 
-
-
-FROM golang:1.10.0-alpine3.7
-RUN pip install -r requirement2.txt
-
-
 # This results in a single layer image
-FROM scratch
+FROM golang:1.11-alpine
+RUN pip install django==1.2
 COPY --from=build /bin/project /bin/project
 ENTRYPOINT ["/bin/project"]
 CMD ["--help"]
