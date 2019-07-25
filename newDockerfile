@@ -7,10 +7,7 @@ RUN apk add --update --no-cache alpine-sdk iproute2 dumb-init fuse
       
 RUN go get github.com/golang/dep/cmd/dep
 
-
-
 # List project dependencies with Gopkg.toml and Gopkg.lock
-
 RUN  pip install     "Django>=1.8.15"  
 
 # These layers are only re-built when Gopkg files are updated
