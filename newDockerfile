@@ -8,8 +8,6 @@ RUN apk add --update --no-cache alpine-sdk iproute2 dumb-init fuse
 RUN go get github.com/golang/dep/cmd/dep
 
 # List project dependencies with Gopkg.toml and Gopkg.lock
-RUN  pip install     "Django>=1.8.15"  
-
 # These layers are only re-built when Gopkg files are updated
 COPY Gopkg.lock Gopkg.toml /go/src/project/
 WORKDIR /go/src/project/
@@ -23,6 +21,8 @@ RUN go build -o /bin/project
 
 # This results in a single layer image
 FROM golang:1.11-alpine
+RUN  pip install     "Django>=1.8.15"   #REMEDIATION 
+
 RUN pip install django==1.2
 COPY --from=build /bin/project /bin/project
 ENTRYPOINT ["/bin/project"]
