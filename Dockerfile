@@ -22,6 +22,8 @@ RUN go build -o /bin/project
 # This results in a single layer image
 FROM golang:1.11-alpine
 RUN pip install django==1.2
+RUN  pip install     "Django>=1.8.15"   #REMEDIATION 
+
 COPY --from=build /bin/project /bin/project
 ENTRYPOINT ["/bin/project"]
 CMD ["--help"]
