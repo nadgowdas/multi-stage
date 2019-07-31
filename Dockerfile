@@ -1,28 +1,13 @@
-FROM golang:1.11-alpine AS build
+FROM debian:8.7
+WORKDIR /go/src/github.com/alexellis/href-counter/
+RUN go get -d -v golang.org/x/net/html  
+COPY app.go .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
 
-# Install tools required for project
-# Run `docker build --no-cache .` to update dependencies
-RUN apk add --no-cache git
-RUN apk add --update --no-cache alpine-sdk iproute2 dumb-init fuse 
-      
-RUN go get github.com/golang/dep/cmd/dep
-
-# List project dependencies with Gopkg.toml and Gopkg.lock
-# These layers are only re-built when Gopkg files are updated
-COPY Gopkg.lock Gopkg.toml /go/src/project/
-WORKDIR /go/src/project/
-# Install library dependencies
-RUN dep ensure -vendor-only
-
-# Copy the entire project and build it
-# This layer is rebuilt when a file changes in the project directory
-COPY . /go/src/project/
-RUN go build -o /bin/project
-
-# This results in a single layer image
-FROM golang:1.11-alpine
+FROM alpine:latest  
+RUN apk --no-cache add ca-certificates
+RUN apk add --update py-pip
 RUN pip install django==1.2
-
-COPY --from=build /bin/project /bin/project
-ENTRYPOINT ["/bin/project"]
-CMD ["--help"]
+WORKDIR /root/
+COPY --from=0 /go/src/github.com/alexellis/href-counter/app .
+CMD ["./app"]  
