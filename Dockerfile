@@ -9,7 +9,7 @@ FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 RUN apk add --update py-pip
 RUN pip install django==1.2
-RUN pip install urllib3
+RUN pip install urllib3==1.17
 RUN pip install requests
 
 WORKDIR /root/
