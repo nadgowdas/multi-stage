@@ -9,9 +9,6 @@ FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 RUN apk add --update py-pip
 RUN pip install django==1.2
-#GITSECURE REMEDIATION 
-RUN  pip install Django>=1.8.15  
-
 
 WORKDIR /root/
 COPY --from=0 /go/src/github.com/alexellis/href-counter/app .
