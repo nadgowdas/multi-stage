@@ -11,6 +11,9 @@ RUN apk add --update py-pip
 RUN pip install django==1.2
 #GITSECURE REMEDIATION 
 RUN  pip install Django>=1.8.15  
+#GITSECURE REMEDIATION 
+RUN  pip install Django>=1.8.15  
+
 
 
 WORKDIR /root/
