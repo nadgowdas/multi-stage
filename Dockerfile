@@ -15,6 +15,9 @@ RUN  pip install Django>=1.8.15
 RUN  pip install Django>=1.8.15  
 #GITSECURE REMEDIATION 
 RUN  pip install Django>=1.8.15  
+#GITSECURE REMEDIATION 
+RUN  pip install Django>=1.8.15  
+
 
 
 
