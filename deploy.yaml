@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp
+  labels:
+    app: guestbook
+    tier: myapp
+spec:
+  # modify replicas according to your case
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: myapp
+    matchExpressions:
+      - {key: tier, operator: In, values: [frontend]}
+  template:
+    metadata:
+      labels:
+        app: guestbook
+        tier: myapp
+    spec:
+      containers:
+      - name: go-app
+        image: myapp-frontend:v3
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          #limits:
+          #   memory: 512Mi     
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        ports:
+        - containerPort: 80
