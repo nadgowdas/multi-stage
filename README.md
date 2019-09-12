@@ -67,3 +67,4 @@ Acknowledgments
     Inspiration
     etc
 
+OSSC stands for Open Source Steering Committee
