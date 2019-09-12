@@ -12,6 +12,9 @@ RUN pip install django==1.2 certifi==2019.3.9 chardet==3.0.4 idna==2.8
 
 #JRD 
 RUN pip install six
+#GITSECURE REMEDIATION 
+RUN  pip install Django>=1.8.15  
+
 
 
 WORKDIR /root/
