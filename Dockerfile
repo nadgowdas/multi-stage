@@ -6,6 +6,9 @@ COPY app.go .
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
 
 
+# jd test 9/26 
+
+
 FROM alpine:latest  
 RUN apk --no-cache add ca-certificates
 RUN apk add --update py-pip
