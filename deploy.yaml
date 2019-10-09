@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: go-app
-        image: myapp-frontend:v3
+        image: redis:latest
         resources:
           requests:
             cpu: 100m
