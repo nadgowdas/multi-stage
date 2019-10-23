@@ -11,6 +11,10 @@ RUN apk --no-cache add ca-certificates
 RUN apk add --update py-pip
 RUN pip install django==1.2 certifi==2019.3.9 chardet==3.0.4 idna==2.8
 
+
+# blah by jim 
+
+
 WORKDIR /root/
 COPY --from=0 /go/src/github.com/alexellis/href-counter/app .
 CMD ["./app"]  
